@@ -1,4 +1,3 @@
-
 import { Github, Linkedin } from 'lucide-react';
 
 interface FooterProps {
@@ -18,17 +17,18 @@ const Footer = ({ onSectionChange }: FooterProps) => {
   ];
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gray-900 dark:bg-black text-white py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mt-auto">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <div className="text-center md:text-left">
             <h3 className="text-xl font-bold mb-2">Brian Masheti</h3>
             <p className="text-gray-400">Data Analyst | Developer</p>
+            <p className="text-gray-400 text-sm mt-1">Nairobi, Kenya</p>
           </div>
           
           <div className="text-center">
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
+            <ul className="space-y-1">
               {quickLinks.map(link => (
                 <li key={link.id}>
                   <button
@@ -43,13 +43,14 @@ const Footer = ({ onSectionChange }: FooterProps) => {
           </div>
           
           <div className="text-center md:text-right">
-            <h3 className="text-lg font-semibold mb-4">Follow Me</h3>
-            <div className="flex justify-center md:justify-end space-x-4">
+            <h3 className="text-lg font-semibold mb-3">Follow Me</h3>
+            <div className="flex justify-center md:justify-end space-x-4 mb-2">
               <a 
                 href="https://github.com/Brian-Masheti" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-500 transition-colors"
+                aria-label="GitHub"
               >
                 <Github className="w-6 h-6" />
               </a>
@@ -58,6 +59,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-500 transition-colors"
+                aria-label="LinkedIn"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
@@ -87,10 +89,11 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                 </svg>
               </a>
             </div>
+            <p className="text-gray-400 text-xs">Let's connect!</p>
           </div>
         </div>
         
-        <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+        <div className="border-t border-gray-700 mt-6 pt-4 text-center">
           <p className="text-gray-400 text-sm">
             © 2025 Brian Masheti. All rights reserved.
           </p>
