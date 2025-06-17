@@ -1,0 +1,318 @@
+
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { CalendarIcon, Clock, MessageSquare, Mail, User, Phone } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
+
+const ServiceBooking = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedTime, setSelectedTime] = useState<string>('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const services = [
+    'Data Analysis Consultation',
+    'Software Development Project',
+    'Customer Service Optimization',
+    'Business Intelligence Setup',
+    'General Consultation'
+  ];
+
+  const timeSlots = [
+    '09:00', '10:00', '11:00', '12:00',
+    '14:00', '15:00', '16:00', '17:00'
+  ];
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const sendWhatsAppNotification = (bookingDetails: any) => {
+    const message = `New Appointment Booking:%0A%0AClient: ${bookingDetails.name}%0AEmail: ${bookingDetails.email}%0APhone: ${bookingDetails.phone}%0AService: ${bookingDetails.service}%0ADate: ${bookingDetails.date}%0ATime: ${bookingDetails.time}%0AMessage: ${bookingDetails.message}`;
+    const whatsappUrl = `https://wa.me/254741754002?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const sendEmailNotification = async (bookingDetails: any) => {
+    // This would typically integrate with EmailJS or another email service
+    // For now, we'll simulate the email sending
+    console.log('Email notification would be sent with details:', bookingDetails);
+  };
+
+  const handleBookingSubmit = async () => {
+    if (!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.service) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields and select a date and time.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const bookingDetails = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      date: format(selectedDate, 'PPP'),
+      time: selectedTime,
+      message: formData.message
+    };
+
+    try {
+      // Send WhatsApp notification
+      sendWhatsAppNotification(bookingDetails);
+      
+      // Send email notification (you can integrate with EmailJS here)
+      await sendEmailNotification(bookingDetails);
+
+      toast({
+        title: "Booking Submitted!",
+        description: "Your appointment request has been sent. I'll confirm the booking shortly via WhatsApp.",
+      });
+
+      // Reset form
+      setSelectedDate(undefined);
+      setSelectedTime('');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an issue submitting your booking. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Book a Consultation
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Schedule a consultation to discuss your project needs and how I can help bring your ideas to life.
+          </p>
+        </div>
+
+        <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-xl">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl text-gray-900 dark:text-white flex items-center justify-center gap-2">
+              <CalendarIcon className="w-6 h-6" />
+              Schedule Your Appointment
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left Column - Calendar and Time */}
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                    Select Date *
+                  </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !selectedDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={setSelectedDate}
+                        disabled={(date) => date < new Date() || date.getDay() === 0 || date.getDay() === 6}
+                        initialFocus
+                        className={cn("p-3 pointer-events-auto")}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                    Select Time *
+                  </Label>
+                  <Select value={selectedTime} onValueChange={setSelectedTime}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choose a time slot" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeSlots.map((time) => (
+                        <SelectItem key={time} value={time}>
+                          <div className="flex items-center">
+                            <Clock className="mr-2 h-4 w-4" />
+                            {time}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Right Column - Contact Info */}
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Full Name *
+                  </Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    placeholder="Your full name"
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    placeholder="your.email@example.com"
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Phone Number
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    placeholder="+254 xxx xxx xxx"
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Service Selection */}
+            <div>
+              <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                Service Type *
+              </Label>
+              <Select value={formData.service} onValueChange={(value) => handleInputChange('service', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select the service you need" />
+                </SelectTrigger>
+                <SelectContent>
+                  {services.map((service) => (
+                    <SelectItem key={service} value={service}>
+                      {service}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Message */}
+            <div>
+              <Label htmlFor="message" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Project Details
+              </Label>
+              <Textarea
+                id="message"
+                value={formData.message}
+                onChange={(e) => handleInputChange('message', e.target.value)}
+                placeholder="Tell me about your project, goals, and any specific requirements..."
+                className="mt-1 min-h-[100px]"
+              />
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button
+                onClick={handleBookingSubmit}
+                disabled={isSubmitting}
+                className="flex-1 bg-orange-600 hover:bg-orange-700 text-white h-12"
+                size="lg"
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {isSubmitting ? 'Submitting...' : 'Book Appointment'}
+              </Button>
+              
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="lg" className="flex-1 h-12">
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    Quick WhatsApp
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Quick WhatsApp Contact</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <p className="text-gray-600 dark:text-gray-300">
+                      For immediate assistance or quick questions, reach out via WhatsApp:
+                    </p>
+                    <Button
+                      onClick={() => window.open('https://wa.me/254741754002', '_blank')}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Open WhatsApp Chat
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+
+            <div className="text-center text-sm text-gray-500 dark:text-gray-400 pt-4 border-t">
+              <p>I'll confirm your appointment within 24 hours via WhatsApp or email.</p>
+              <p>Available Monday-Friday, 9:00 AM - 5:00 PM (EAT)</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+};
+
+export default ServiceBooking;
