@@ -101,7 +101,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# NOTE: public/ directory contains static assets - DO NOT IGNORE
 
 # Storybook build outputs
 .out
@@ -178,16 +178,6 @@ authorized_keys
 *.msg
 mail/
 emails/
-
-# Financial and personal documents
-*.pdf
-*.doc
-*.docx
-*.xls
-*.xlsx
-invoices/
-receipts/
-contracts/
 
 # Archive files that might contain sensitive data
 *.zip

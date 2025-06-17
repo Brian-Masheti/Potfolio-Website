@@ -1,0 +1,23 @@
+{
+  "name": "Brian Masheti Portfolio",
+  "short_name": "BM Portfolio",
+  "description": "Brian Masheti - Data Analyst & Software Developer Portfolio",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ea580c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
