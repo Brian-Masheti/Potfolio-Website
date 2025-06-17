@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
@@ -81,9 +80,9 @@ const Index = () => {
 
   return (
     <ThemeProvider defaultTheme="light">
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
         <Navigation currentSection={currentSection} onSectionChange={handleSectionChange} />
-        <main className="pt-16">
+        <main className="flex-1 pt-16">
           {renderCurrentSection()}
         </main>
         <Footer onSectionChange={handleSectionChange} />

@@ -1,11 +1,44 @@
+# GitHub specific
+.github/
+
 # Dependencies
-node_modules/
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js specific
+/.next/
+/out/
+/build
+.next
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-.pnpm-debug.log*
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Keep these directories
+!public/
+!public/images/
 
 # Production builds
 dist/
@@ -101,7 +134,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# NOTE: public/ directory contains static assets - DO NOT IGNORE
 
 # Storybook build outputs
 .out
@@ -178,16 +211,6 @@ authorized_keys
 *.msg
 mail/
 emails/
-
-# Financial and personal documents
-*.pdf
-*.doc
-*.docx
-*.xls
-*.xlsx
-invoices/
-receipts/
-contracts/
 
 # Archive files that might contain sensitive data
 *.zip
@@ -362,5 +385,3 @@ notes/
 todo-private.*
 development-notes.*
 client-notes.*
-
-# End of .gitignore
