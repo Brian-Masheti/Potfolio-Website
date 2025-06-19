@@ -51,8 +51,7 @@ const Skills = () => {
         { name: 'NVivo', level: 95 },
         { name: 'MAXQDA', level: 92 },
         { name: 'STATA', level: 78 },
-        { name: 'SPSS', level: 82 },
-        { name: 'Statistical Analysis', level: 88 }
+        { name: 'SPSS', level: 82 }        
       ]
     },
     {
@@ -65,7 +64,8 @@ const Skills = () => {
         { name: 'Requirements Gathering', level: 85 },
         { name: 'Business Analysis', level: 82 },
         { name: 'Financial Modeling', level: 85 },
-        { name: 'Market Research', level: 80 }
+        { name: 'Market Research', level: 80 },
+        { name: 'Statistical Analysis', level: 88 }
       ]
     }
   ];

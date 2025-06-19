@@ -13,9 +13,12 @@ import { CalendarIcon, Clock, MessageSquare, Mail, User, Phone } from 'lucide-re
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
+emailjs.init('XznZdfoTxtXcFDNb1');
 
 const ServiceBooking = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [formData, setFormData] = useState({
     name: '',
@@ -24,6 +27,7 @@ const ServiceBooking = () => {
     service: '',
     message: ''
   });
+  const [contactMethod, setContactMethod] = useState<'whatsapp' | 'email'>('whatsapp');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -51,9 +55,23 @@ const ServiceBooking = () => {
   };
 
   const sendEmailNotification = async (bookingDetails: any) => {
-    // This would typically integrate with EmailJS or another email service
-    // For now, we'll simulate the email sending
-    console.log('Email notification would be sent with details:', bookingDetails);
+    // Initialize EmailJS with your public key
+    emailjs.init('XznZdfoTxtXcFDNb1');
+    try {
+      const response = await emailjs.send('service_6j4s8s4', 'template_lw7yq2x', {
+        from_name: bookingDetails.name,
+        from_email: bookingDetails.email,
+        phone: bookingDetails.phone,
+        service: bookingDetails.service,
+        date: bookingDetails.date,
+        time: bookingDetails.time,
+        message: bookingDetails.message
+      });
+      console.log('EmailJS Success:', response);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      throw error;
+    }
   };
 
   const handleBookingSubmit = async () => {
@@ -73,21 +91,43 @@ const ServiceBooking = () => {
       email: formData.email,
       phone: formData.phone,
       service: formData.service,
+      subject: formData.service, // Use service as subject
       date: format(selectedDate, 'PPP'),
       time: selectedTime,
       message: formData.message
     };
 
     try {
-      // Send WhatsApp notification
-      sendWhatsAppNotification(bookingDetails);
-      
-      // Send email notification (you can integrate with EmailJS here)
-      await sendEmailNotification(bookingDetails);
+      if (contactMethod === 'whatsapp') {
+        sendWhatsAppNotification(bookingDetails);
+      } else {
+        // Send notification to you
+        await emailjs.send('service_6j4s8s4', 'template_lw7yq2x', {
+          from_name: bookingDetails.name,
+          reply_to: bookingDetails.email,
+          from_email: bookingDetails.email,
+          phone: bookingDetails.phone,
+          subject: bookingDetails.subject,
+          date: bookingDetails.date,
+          time: bookingDetails.time,
+          message: bookingDetails.message
+        });
+        // Send autoreply to client
+        await emailjs.send('service_6j4s8s4', 'template_dckq64j', {
+          from_name: bookingDetails.name,
+          reply_to: bookingDetails.email,
+          from_email: bookingDetails.email,
+          phone: bookingDetails.phone,
+          subject: bookingDetails.subject,
+          date: bookingDetails.date,
+          time: bookingDetails.time,
+          message: bookingDetails.message
+        });
+      }
 
       toast({
         title: "Booking Submitted!",
-        description: "Your appointment request has been sent. I'll confirm the booking shortly via WhatsApp.",
+        description: `Your appointment request has been sent. I'll confirm the booking shortly via ${contactMethod === 'whatsapp' ? 'WhatsApp' : 'email'}.`,
       });
 
       // Reset form
@@ -100,8 +140,10 @@ const ServiceBooking = () => {
         service: '',
         message: ''
       });
+      setContactMethod('whatsapp');
 
     } catch (error) {
+      console.error('Booking submission error:', error);
       toast({
         title: "Error",
         description: "There was an issue submitting your booking. Please try again.",
@@ -139,7 +181,8 @@ const ServiceBooking = () => {
                   <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
                     Select Date *
                   </Label>
-                  <Popover>
+                  {/* Calendar Popover with controlled open state */}
+                  <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
@@ -147,6 +190,7 @@ const ServiceBooking = () => {
                           "w-full justify-start text-left font-normal",
                           !selectedDate && "text-muted-foreground"
                         )}
+                        onClick={() => setIsCalendarOpen(true)}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
@@ -156,7 +200,10 @@ const ServiceBooking = () => {
                       <Calendar
                         mode="single"
                         selected={selectedDate}
-                        onSelect={setSelectedDate}
+                        onSelect={(date) => {
+                          setSelectedDate(date);
+                          if (date) setIsCalendarOpen(false);
+                        }}
                         disabled={(date) => date < new Date() || date.getDay() === 0 || date.getDay() === 6}
                         initialFocus
                         className={cn("p-3 pointer-events-auto")}
@@ -265,18 +312,44 @@ const ServiceBooking = () => {
               />
             </div>
 
-            {/* Submit Button */}
+            {/* Contact Method Selection */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button
-                onClick={handleBookingSubmit}
-                disabled={isSubmitting}
-                className="flex-1 bg-orange-600 hover:bg-orange-700 text-white h-12"
-                size="lg"
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {isSubmitting ? 'Submitting...' : 'Book Appointment'}
-              </Button>
-              
+              <div className="flex flex-col flex-1">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preferred Contact Method *</label>
+                <div className="flex gap-4 mb-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="contactMethod"
+                      value="whatsapp"
+                      checked={contactMethod === 'whatsapp'}
+                      onChange={() => setContactMethod('whatsapp')}
+                      className="accent-orange-600"
+                    />
+                    WhatsApp
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="contactMethod"
+                      value="email"
+                      checked={contactMethod === 'email'}
+                      onChange={() => setContactMethod('email')}
+                      className="accent-orange-600"
+                    />
+                    Email
+                  </label>
+                </div>
+                <Button
+                  onClick={handleBookingSubmit}
+                  disabled={isSubmitting}
+                  className="w-full bg-orange-600 hover:bg-orange-700 text-white h-12"
+                  size="lg"
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {isSubmitting ? 'Submitting...' : 'Book Appointment'}
+                </Button>
+              </div>
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="lg" className="flex-1 h-12">

@@ -11,6 +11,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,7 +36,10 @@ const Contact = () => {
     try {
       const response = await emailjs.send('service_6j4s8s4', 'template_lw7yq2x', {
         from_name: formData.name,
-        from_email: formData.email,
+        reply_to: formData.email,
+        subject: formData.subject,
+        date: '', // Not applicable for contact form
+        time: '', // Not applicable for contact form
         message: formData.message
       });
       
@@ -127,6 +131,14 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     className="text-sm sm:text-base dark:bg-gray-600 dark:border-gray-500 dark:text-white" 
+                  />
+                  <Input 
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    required
+                    className="text-sm sm:text-base dark:bg-gray-600 dark:border-gray-500 dark:text-white col-span-1 sm:col-span-2" 
                   />
                 </div>
                 <Textarea 
