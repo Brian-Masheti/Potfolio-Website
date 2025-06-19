@@ -26,8 +26,8 @@ const ChatInput = ({ currentMessage, setCurrentMessage, onSendMessage, disabled 
         onKeyPress={handleKeyPress}
         placeholder="Type your message... (Shift+Enter for new line)"
         disabled={disabled}
-        className="flex-1 dark:bg-gray-600 dark:border-gray-500 dark:text-white resize-none min-h-[40px] max-h-[120px]"
-        rows={1}
+        className="w-full max-w-full flex-1 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-base sm:text-base text-gray-700 dark:text-gray-300 placeholder:text-base placeholder:text-gray-500 dark:placeholder:text-gray-400 min-h-[100px] h-24 resize-none focus:ring-2 focus:ring-orange-500 focus:border-transparent break-words overflow-auto"
+        rows={4}
         // Grammarly integration attributes
         data-gramm="true"
         data-gramm_editor="true"
