@@ -43,7 +43,7 @@ const Testimonials = () => {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
             <p className="text-gray-700 dark:text-gray-300 mb-4 italic">"Brian did an amazing job on our project. Highly recommend!"</p>
             <div className="flex items-center justify-center">
-              <img src="/images/placeholder-avatar.png" alt="Client Name" className="w-12 h-12 rounded-full mr-4" />
+              <img src="/images/placeholder-avatar.png" alt="Client testimonial avatar - Brian Masheti Portfolio" loading="lazy" className="w-12 h-12 rounded-full mr-4" />
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">Client Name</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Company / Role</p>

@@ -203,7 +203,7 @@ const About = () => {
                     {edu.mern && (
                       <div>
                         <div className="relative w-full h-40 sm:h-48 mb-2 rounded-lg overflow-hidden">
-                          <img src="/images/mern.avif" alt="MERN Stack Class" className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-300 bg-white dark:bg-gray-900" style={{objectPosition: 'center'}} />
+                          <img src="/images/mern.avif" alt="MERN Stack Class - Brian Masheti Portfolio" loading="lazy" className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-300 bg-white dark:bg-gray-900" style={{objectPosition: 'center'}} />
                           <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
                             <span className="text-white text-xs font-semibold">See what I'm learning!</span>
                           </div>

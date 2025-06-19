@@ -29,6 +29,8 @@ const ServiceBooking = () => {
   });
   const [contactMethod, setContactMethod] = useState<'whatsapp' | 'email'>('whatsapp');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const { toast } = useToast();
 
   const services = [
@@ -44,11 +46,33 @@ const ServiceBooking = () => {
     '14:00', '15:00', '16:00', '17:00'
   ];
 
+  const validateEmail = (email: string) => {
+    // Simple email regex
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    // International format: starts with +, at least 10 digits
+    return /^\+\d{10,}$/.test(phone);
+  };
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    if (field === 'email') {
+      setEmailError(value && !validateEmail(value) ? 'Please enter a valid email address.' : '');
+    }
+    if (field === 'phone') {
+      setPhoneError(value && !validatePhone(value) ? 'Please enter a valid international phone number (e.g. +254...).' : '');
+    }
   };
 
   const sendWhatsAppNotification = (bookingDetails: any) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'whatsapp_click', {
+        event_category: 'Contact',
+        event_label: bookingDetails.phone || '',
+      });
+    }
     const message = `New Appointment Booking:%0A%0AClient: ${bookingDetails.name}%0AEmail: ${bookingDetails.email}%0APhone: ${bookingDetails.phone}%0AService: ${bookingDetails.service}%0ADate: ${bookingDetails.date}%0ATime: ${bookingDetails.time}%0AMessage: ${bookingDetails.message}`;
     const whatsappUrl = `https://wa.me/254741754002?text=${message}`;
     window.open(whatsappUrl, '_blank');
@@ -79,6 +103,14 @@ const ServiceBooking = () => {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields and select a date and time.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (emailError || phoneError) {
+      toast({
+        title: "Invalid Input",
+        description: "Please correct the errors in the form before submitting.",
         variant: "destructive",
       });
       return;
@@ -125,6 +157,12 @@ const ServiceBooking = () => {
         });
       }
 
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'booking_submit', {
+          event_category: 'Booking',
+          event_label: bookingDetails.service,
+        });
+      }
       toast({
         title: "Booking Submitted!",
         description: `Your appointment request has been sent. I'll confirm the booking shortly via ${contactMethod === 'whatsapp' ? 'WhatsApp' : 'email'}.`,
@@ -142,11 +180,21 @@ const ServiceBooking = () => {
       });
       setContactMethod('whatsapp');
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Booking submission error:', error);
+      let description = "There was an issue submitting your booking. Please try again.";
+      if (error?.text && typeof error.text === 'string') {
+        if (error.text.includes('recipients address is empty')) {
+          description = "The email address you entered is invalid or missing. Please check and try again.";
+        } else if (error.text.includes('The public key is required')) {
+          description = "Internal error: Email service misconfiguration. Please contact site admin.";
+        } else if (error.text.includes('quota')) {
+          description = "The booking system is temporarily unavailable due to email limits. Please try again later.";
+        }
+      }
       toast({
         title: "Error",
-        description: "There was an issue submitting your booking. Please try again.",
+        description,
         variant: "destructive",
       });
     } finally {
@@ -242,10 +290,11 @@ const ServiceBooking = () => {
                   </Label>
                   <Input
                     id="name"
+                    aria-label="Full Name"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
                     placeholder="Your full name"
-                    className="mt-1"
+                    className="mt-1 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   />
                 </div>
 
@@ -255,12 +304,14 @@ const ServiceBooking = () => {
                   </Label>
                   <Input
                     id="email"
+                    aria-label="Email Address"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     placeholder="your.email@example.com"
-                    className="mt-1"
+                    className="mt-1 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   />
+                  {emailError && <p className="text-red-600 text-xs mt-1">{emailError}</p>}
                 </div>
 
                 <div>
@@ -269,12 +320,14 @@ const ServiceBooking = () => {
                   </Label>
                   <Input
                     id="phone"
+                    aria-label="Phone Number"
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     placeholder="+254 xxx xxx xxx"
-                    className="mt-1"
+                    className="mt-1 focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   />
+                  {phoneError && <p className="text-red-600 text-xs mt-1">{phoneError}</p>}
                 </div>
               </div>
             </div>
@@ -285,12 +338,12 @@ const ServiceBooking = () => {
                 Service Type *
               </Label>
               <Select value={formData.service} onValueChange={(value) => handleInputChange('service', value)}>
-                <SelectTrigger>
+                <SelectTrigger aria-label="Service Type">
                   <SelectValue placeholder="Select the service you need" />
                 </SelectTrigger>
                 <SelectContent>
                   {services.map((service) => (
-                    <SelectItem key={service} value={service}>
+                    <SelectItem key={service} value={service} aria-label={service}>
                       {service}
                     </SelectItem>
                   ))}
@@ -305,10 +358,11 @@ const ServiceBooking = () => {
               </Label>
               <Textarea
                 id="message"
+                aria-label="Project Details"
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
                 placeholder="Tell me about your project, goals, and any specific requirements..."
-                className="mt-1 min-h-[100px]"
+                className="mt-1 min-h-[100px] focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               />
             </div>
 
@@ -342,11 +396,17 @@ const ServiceBooking = () => {
                 </div>
                 <Button
                   onClick={handleBookingSubmit}
-                  disabled={isSubmitting}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white h-12"
+                  aria-label="Book Appointment"
+                  disabled={isSubmitting || !!emailError || !!phoneError}
+                  className="w-full bg-orange-600 hover:bg-orange-700 text-white h-12 flex items-center justify-center focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   size="lg"
                 >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {isSubmitting ? (
+                    <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                    </svg>
+                  ) : <CalendarIcon className="mr-2 h-4 w-4" />}
                   {isSubmitting ? 'Submitting...' : 'Book Appointment'}
                 </Button>
               </div>
