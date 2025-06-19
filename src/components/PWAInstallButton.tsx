@@ -111,11 +111,7 @@ const PWAInstallButton: React.FC = () => {
           Install App
         </button>
       )}
-      {debug && (
-        <div style={{position: 'fixed', bottom: 0, left: 0, background: '#fffbe6', color: '#b45309', padding: 8, zIndex: 10000, fontSize: 12, maxWidth: 400, border: '1px solid #f59e42', borderRadius: 4}}>
-          <b>PWA Debug:</b> {debug}
-        </div>
-      )}
+      {/* Debug info removed for production */}
     </>
   );
 };

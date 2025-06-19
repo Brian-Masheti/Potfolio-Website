@@ -334,7 +334,14 @@ const About = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {certifications.map((cert, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700">
+              <Card 
+                key={index} 
+                className="hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
+                onMouseEnter={() => {
+                  setPopoverHover(null);
+                  setHoveredDetail(null);
+                }}
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <Award className="h-6 w-6 text-orange-500" />
