@@ -50,7 +50,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                   href="https://github.com/Brian-Masheti" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors hover:underline"
                   aria-label="GitHub"
                 >
                   <Github className="w-6 h-6" />
@@ -59,7 +59,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                   href="https://www.linkedin.com/in/brian-masheti/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors hover:underline"
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-6 h-6" />
@@ -68,7 +68,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                   href="https://web.facebook.com/profile.php?id=61554448543753"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors hover:underline"
                   aria-label="Meta (Facebook)"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                   href="https://x.com/brian_mashetti12"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors hover:underline"
                   aria-label="X (Twitter)"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +93,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
                   href="https://discord.com/users/1029123917928992861"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                  className="text-gray-400 hover:text-orange-500 transition-colors hover:underline"
                   aria-label="Discord"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

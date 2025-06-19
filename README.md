@@ -8,6 +8,8 @@ A modern, responsive portfolio website showcasing expertise in data analysis, so
 ![Vite](https://img.shields.io/badge/Vite-5.4.1-purple)
 ![PWA](https://img.shields.io/badge/PWA-Ready-orange)
 
+[**Live Demo**](https://brian-masheti.netlify.app/)
+
 ## 🚀 Features
 
 ### 📱 Progressive Web App (PWA)

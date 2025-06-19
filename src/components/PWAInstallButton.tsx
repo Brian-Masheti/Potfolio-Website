@@ -92,7 +92,7 @@ const PWAInstallButton: React.FC = () => {
         <button
           id="install-button"
           onClick={handleInstallClick}
-          className="fixed bottom-4 right-4 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors duration-200 flex items-center gap-2 z-50"
+          className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg shadow-lg transition-colors duration-200 flex items-center gap-2 z-50 text-sm sm:text-base"
           aria-label="Install PWA"
         >
           <svg 
@@ -111,7 +111,13 @@ const PWAInstallButton: React.FC = () => {
           Install App
         </button>
       )}
-      {/* Debug info removed for production */}
+      {/*
+      {debug && (
+        <div style={{position: 'fixed', bottom: 0, left: 0, background: '#fffbe6', color: '#b45309', padding: 8, zIndex: 10000, fontSize: 12, maxWidth: 400, border: '1px solid #f59e42', borderRadius: 4}}>
+          <b>PWA Debug:</b> {debug}
+        </div>
+      )}
+      */}
     </>
   );
 };
