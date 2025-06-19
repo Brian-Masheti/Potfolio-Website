@@ -17,7 +17,7 @@ const Footer = ({ onSectionChange }: FooterProps) => {
   ];
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mt-auto">
+    <footer className="bg-gray-900 dark:bg-black text-white py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mt-auto pb-20 sm:pb-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <div className="text-center md:text-left">

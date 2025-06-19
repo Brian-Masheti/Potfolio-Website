@@ -21,6 +21,25 @@ const SoftwareEngineering = ({ onSectionChange }: SoftwareEngineeringProps) => {
 
   const projects = [
     {
+      title: 'Brian Masheti Portfolio',
+      description: 'A modern, responsive PWA portfolio website built with React, TypeScript, Vite, and Tailwind CSS.',
+      githubLink: 'https://github.com/Brian-Masheti/Brian-Masheti-Portfolio',
+      liveDemo: 'https://brian-masheti.netlify.app/',
+      details: {
+        tools: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'PWA', 'Service Worker'],
+        duration: '2 weeks (ongoing, continuously updated)',
+        highlights: [
+          'Installable PWA with offline support',
+          'Modern UI/UX with dark/light mode',
+          'Interactive chat and contact form',
+          'Google Analytics integration',
+          'Fully responsive and accessible',
+          'Deployed on Netlify',
+          'Continuously improved with new features'
+        ]
+      }
+    },
+    {
       title: 'Library Management System',
       description: 'A full-featured database management system for libraries built using MySQL.',
       githubLink: 'https://github.com/Brian-Masheti/Library-Management-System.git',
