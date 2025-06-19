@@ -312,20 +312,20 @@ const About = () => {
 
         {/* Certifications Section */}
         <div>
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 px-6 sm:px-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white w-full sm:w-auto text-center">
               Certifications
             </h3>
             <Button
               asChild
               variant="outline"
-              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+              className="w-full sm:w-auto text-sm sm:text-base border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
             >
               <a 
                 href="https://www.credential.net/profile/brianmasheti/wallet" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2"
+                className="flex items-center justify-center gap-2"
               >
                 <ExternalLink className="h-4 w-4" />
                 View All Certificates

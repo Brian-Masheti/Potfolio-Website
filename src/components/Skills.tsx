@@ -29,7 +29,7 @@ const Skills = () => {
       icon: <Database className="h-6 w-6" style={{ color: 'oklch(63.7% 0.237 25.331)' }} />,
       skills: [
         { name: 'MongoDB', level: 80 },
-        { name: 'MySQ', level: 88 },
+        { name: 'MySQL', level: 88 },
         { name: 'PostgreSQL', level: 88 },
         { name: 'R Studio', level: 80 },
         { name: 'Advanced Excel', level: 95 },

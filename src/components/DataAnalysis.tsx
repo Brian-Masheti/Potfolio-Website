@@ -29,7 +29,7 @@ const DataAnalysis = ({ onSectionChange }: DataAnalysisProps) => {
         ],
         images: [
           '/images/powerbi.png',
-          '/images/powerbi1.png',
+          '/mash/masheti-portfolio-website/public/images/powerbi2.png',
           '/images/salespersons.png'
         ]
       }
