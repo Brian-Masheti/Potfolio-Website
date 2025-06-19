@@ -31,7 +31,7 @@ const Skills = () => {
         { name: 'MongoDB', level: 80 },
         { name: 'MySQL', level: 88 },
         { name: 'PostgreSQL', level: 88 },
-        { name: 'R Studio', level: 80 },
+        { name: 'R-GUI | R Studio', level: 80 },
         { name: 'Advanced Excel', level: 95 },
         { name: 'Python (Data Analysis)', level: 85 }
       ]

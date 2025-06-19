@@ -46,9 +46,13 @@ const Index = () => {
   const handleSectionChange = (section: string) => {
     setCurrentSection(section);
     window.history.pushState({}, '', `/#${section}`);
-    // Scroll to top when section changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // (Scroll will be handled in useEffect below)
   };
+
+  // Always scroll to top after section changes (ensures new content is visible from the top)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentSection]);
 
   const renderCurrentSection = () => {
     switch (currentSection) {
