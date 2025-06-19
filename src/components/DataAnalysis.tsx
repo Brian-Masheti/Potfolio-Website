@@ -29,7 +29,7 @@ const DataAnalysis = ({ onSectionChange }: DataAnalysisProps) => {
         ],
         images: [
           '/images/powerbi.png',
-          '/images/powerbi2.png',
+          '/images/powerbi1.png',
           '/images/salespersons.png'
         ]
       }
