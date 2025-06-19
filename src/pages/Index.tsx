@@ -8,6 +8,7 @@ import Resume from '@/components/Resume';
 import ServiceBooking from '@/components/ServiceBooking';
 import ChatContact from '@/components/ChatContact';
 import Footer from '@/components/Footer';
+import NewsletterSignup from '@/components/NewsletterSignup';
 import DataAnalysis from '@/components/DataAnalysis';
 import SoftwareEngineering from '@/components/SoftwareEngineering';
 import CustomerService from '@/components/CustomerService';
@@ -85,6 +86,7 @@ const Index = () => {
         <main className="flex-1 pt-16">
           {renderCurrentSection()}
         </main>
+        <NewsletterSignup />
         <Footer onSectionChange={handleSectionChange} />
       </div>
     </ThemeProvider>

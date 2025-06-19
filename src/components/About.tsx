@@ -232,12 +232,17 @@ const About = () => {
                         </div>
                         {/* Desktop floating card */}
                         <div
-                          className={`hidden md:block absolute left-1/2 top-full z-30 w-[420px] max-w-lg -translate-x-1/2 mt-2 pointer-events-auto ${showDesktopPopover ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
+                          className={`hidden md:block absolute left-1/2 top-full z-30 w-[420px] max-w-lg -translate-x-1/2 mt-2 pointer-events-auto transition-all duration-300 ${showDesktopPopover ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
                           style={{filter: 'drop-shadow(0 4px 24px rgba(0,0,0,0.15))'}}
                           onMouseEnter={() => setPopoverHover(index)}
                           onMouseLeave={() => setPopoverHover(null)}
                           role="dialog" aria-modal="true" aria-label="MERN Stack Details"
+                          tabIndex={-1}
                         >
+                          {/* Arrow indicator */}
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-3 overflow-hidden">
+                            <div className="w-6 h-6 bg-white dark:bg-gray-900 border-l border-t border-gray-200 dark:border-gray-700 rotate-45 mx-auto shadow" style={{marginTop: 6}}></div>
+                          </div>
                           <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 text-base">
                             <b>Full-Stack Web Development – MERN Stack</b><br />
                             Mastering the complete lifecycle of modern web apps: <b>MongoDB</b> (data modeling), <b>Express.js</b> (APIs), <b>React.js</b> (UI/UX), <b>Node.js</b> (backend), <b>Socket.io</b> (real-time), <b>DevOps</b> (deployment).
@@ -281,12 +286,17 @@ const About = () => {
                         </div>
                         {/* Desktop floating card */}
                         <div
-                          className={`hidden md:block absolute left-1/2 top-full z-30 w-[420px] max-w-lg -translate-x-1/2 mt-2 pointer-events-auto ${showDesktopPopover ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
+                          className={`hidden md:block absolute left-1/2 top-full z-30 w-[420px] max-w-lg -translate-x-1/2 mt-2 pointer-events-auto transition-all duration-300 ${showDesktopPopover ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
                           style={{filter: 'drop-shadow(0 4px 24px rgba(0,0,0,0.15))'}}
                           onMouseEnter={() => setPopoverHover(index)}
                           onMouseLeave={() => setPopoverHover(null)}
                           role="dialog" aria-modal="true" aria-label="Taita Taveta University Details"
+                          tabIndex={-1}
                         >
+                          {/* Arrow indicator */}
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-3 overflow-hidden">
+                            <div className="w-6 h-6 bg-white dark:bg-gray-900 border-l border-t border-gray-200 dark:border-gray-700 rotate-45 mx-auto shadow" style={{marginTop: 6}}></div>
+                          </div>
                           <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 text-base">
                             <b>Academic Background – BSc. in Statistics, Taita Taveta University</b><br />
                             Graduated with a strong foundation in both quantitative analysis and data-driven decision-making. I have applied my academic training to real-world scenarios and now produce professional, insight-driven reports based on the data I collect and analyze.
