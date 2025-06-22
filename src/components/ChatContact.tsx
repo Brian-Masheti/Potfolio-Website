@@ -30,7 +30,9 @@ const ChatContact = () => {
 
         <Card className="max-w-2xl mx-auto flex flex-col dark:bg-gray-700 dark:border-gray-600" style={{ height: '500px' }}>
           <CardContent className="flex-1 flex flex-col p-4 h-full">
-            <MessageList messages={messages} isTyping={isTyping} />
+            <div className="flex-1 overflow-y-auto">
+              <MessageList messages={messages} isTyping={isTyping} />
+            </div>
             <ChatInput
               currentMessage={currentMessage}
               setCurrentMessage={setCurrentMessage}

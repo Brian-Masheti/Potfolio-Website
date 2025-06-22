@@ -49,7 +49,7 @@ const Index = () => {
     // (Scroll will be handled in useEffect below)
   };
 
-  // Always scroll to top after section changes (ensures new content is visible from the top)
+  // Always scroll to top after section changes (fixes contact section hard refresh issue)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentSection]);
