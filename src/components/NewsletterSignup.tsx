@@ -40,7 +40,15 @@ const NewsletterSignup = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
-          style={{ padding: 8, borderRadius: 4, border: "none", marginRight: 8 }}
+          style={{
+            padding: 8,
+            borderRadius: 4,
+            border: "none",
+            marginRight: 8,
+            color: "black",
+            background: "white",
+          }}
+          className="dark:text-white dark:bg-gray-900"
         />
         <button
           type="submit"
