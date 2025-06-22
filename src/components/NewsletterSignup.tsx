@@ -44,11 +44,9 @@ const NewsletterSignup = () => {
             padding: 8,
             borderRadius: 4,
             border: "none",
-            marginRight: 8,
-            color: "black",
-            background: "white",
+            marginRight: 8
           }}
-          className="dark:text-white dark:bg-gray-900"
+          className="text-gray-900 bg-white dark:text-white dark:bg-gray-900 placeholder-gray-500 dark:placeholder-gray-400"
         />
         <button
           type="submit"
