@@ -184,17 +184,7 @@ const SoftwareEngineering = ({ onSectionChange }: SoftwareEngineeringProps) => {
           ))}
         </div>
 
-        <div className="text-center">
-          <Button 
-            onClick={() => onSectionChange('services')}
-            className="text-white hover:opacity-90"
-            style={{ backgroundColor: 'oklch(54.1% 0.281 293.009)' }}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Services
-          </Button>
-        </div>
-      </div>
+              </div>
     </section>
   );
 };

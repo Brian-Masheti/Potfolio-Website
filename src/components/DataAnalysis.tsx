@@ -217,18 +217,7 @@ const DataAnalysis = ({ onSectionChange }: DataAnalysisProps) => {
           ))}
         </div>
 
-        {/* Back Button */}
-        <div className="text-center">
-          <Button 
-            onClick={() => onSectionChange('services')}
-            className="text-white hover:opacity-90"
-            style={{ backgroundColor: 'oklch(84.1% 0.238 128.85)' }}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Services
-          </Button>
-        </div>
-      </div>
+              </div>
 
       {/* Image Modal */}
       {modalImage && (

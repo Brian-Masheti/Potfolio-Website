@@ -229,17 +229,7 @@ const CustomerService = ({ onSectionChange }: CustomerServiceProps) => {
           ))}
         </div>
 
-        <div className="text-center">
-          <Button 
-            onClick={() => onSectionChange('services')}
-            className="text-white hover:opacity-90"
-            style={{ backgroundColor: 'oklch(62.3% 0.214 259.815)' }}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Services
-          </Button>
-        </div>
-      </div>
+              </div>
     </section>
   );
 };
